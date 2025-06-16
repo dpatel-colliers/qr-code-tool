@@ -1,7 +1,6 @@
 {
   "name": "my-qr-code-app",
   "version": "0.1.0",
-  "homepage": "https://dpatel-colliers.github.io/react-gh-pages",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
@@ -10,7 +9,6 @@
     "@testing-library/user-event": "^13.5.0",
     "@yudiel/react-qr-scanner": "^2.3.1",
     "crypto-js": "^4.2.0",
-    "firebase": "^11.9.1",
     "qrcode": "^1.5.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -18,8 +16,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
