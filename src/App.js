@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import QRCode from 'react-qr-code';
-import BarcodeScanner from "react-qr-barcode-scanner";
+import BarcodeScanner from "./components/BarcodeScanner";
 import CryptoJS from 'crypto-js';
 
 const SECRET_KEY = 'DATTU-TESTING-SECURE-KEY';
