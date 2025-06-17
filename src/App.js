@@ -1,10 +1,10 @@
 // App.js
 import React, { useState, useEffect } from 'react';
-import QRCode from 'qrcode';
+import QRCode from 'react-qr-code';
+// import BarcodeScanner from "react-qr-barcode-scanner";
 import CryptoJS from 'crypto-js';
-import { Scanner } from '@yudiel/react-qr-scanner';
 
-const SECRET_KEY = 'DATTU-TESTING-QR-CODE';
+const SECRET_KEY = 'DATTU-TESTING-SECURE-KEY';
 
 const encryptMessage = (text) => {
   const payload = {
@@ -25,29 +25,22 @@ const decryptMessage = (ciphertext) => {
 
 const App = () => {
   const [input, setInput] = useState('');
-  const [qrCode, setQrCode] = useState('');
+  const [encryptedText, setEncryptedText] = useState('');
   const [error, setError] = useState('');
   const [decryptedText, setDecryptedText] = useState('');
   const [scanned, setScanned] = useState(false);
 
   useEffect(() => {
-    if (!input.trim()) return setQrCode('');
+    if (!input.trim()) return setEncryptedText('');
 
     const encrypted = encryptMessage(input);
-    QRCode.toDataURL(encrypted)
-      .then(setQrCode)
-      .catch(err => {
-        console.error('QR generation failed:', err);
-        setError('Failed to generate QR code');
-      });
+    setEncryptedText(encrypted);
   }, [input]);
 
-  const handleScan = (codes) => {
-    if (scanned || codes.length === 0) return;
+  const handleScan = (err, result) => {
+    if (err || scanned || !result) return;
 
-    const code = codes[0].rawValue;
-    const decrypted = decryptMessage(code);
-
+    const decrypted = decryptMessage(result.text);
     if (!decrypted) {
       setError('Invalid or tampered QR code');
       return;
@@ -62,7 +55,6 @@ const App = () => {
     setDecryptedText(decrypted.text);
     setScanned(true);
     setError('');
-
     setTimeout(() => setScanned(false), 3000);
   };
 
@@ -86,24 +78,25 @@ const App = () => {
 
       <div style={{ marginBottom: '30px' }}>
         <h3 style={{ marginBottom: '10px' }}>Generated QR Code:</h3>
-        {qrCode ? (
-          <img src={qrCode} alt="QR Code" style={{ width: '200px', border: '1px solid #ccc', padding: '4px' }} />
+        {encryptedText ? (
+          <QRCode value={encryptedText} size={200} style={{ border: '1px solid #ccc', padding: '4px' }} />
         ) : (
           <p>No QR code generated.</p>
         )}
       </div>
+      <p>ADDING SCANNER</p>
 
-      <div style={{ marginBottom: '30px' }}>
+      {/* <div style={{ marginBottom: '30px' }}>
         <h3 style={{ marginBottom: '10px' }}>Scan a QR Code:</h3>
         <div style={{ width: '100%', maxWidth: '320px' }}>
-          <Scanner
-            onScan={handleScan}
-            onError={(err) => setError(String(err))}
-            constraints={{ facingMode: 'environment' }}
+          <BarcodeScanner
+            width={320}
+            height={240}
+            onUpdate={handleScan}
           />
         </div>
         {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
-      </div>
+      </div> */}
 
       {decryptedText && (
         <div style={{ backgroundColor: '#e6ffe6', border: '1px solid #a6d8a6', padding: '12px' }}>
