@@ -6,6 +6,8 @@ import {
 } from "@zxing/library";
 import Webcam from "react-webcam";
 
+// Source: https://www.npmjs.com/package/react-qr-barcode-scanner
+
 const BarcodeScanner = ({
   onUpdate,
   onError,
