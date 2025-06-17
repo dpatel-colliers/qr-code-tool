@@ -5,7 +5,6 @@ import {
   DecodeHintType,
 } from "@zxing/library";
 import Webcam from "react-webcam";
-import { BarcodeStringFormat } from "./BarcodeStringFormat";
 
 const BarcodeScanner = ({
   onUpdate,
