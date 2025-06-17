@@ -1,7 +1,6 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import QRCode from 'react-qr-code';
-// import BarcodeScanner from "react-qr-barcode-scanner";
+import BarcodeScanner from "react-qr-barcode-scanner";
 import CryptoJS from 'crypto-js';
 
 const SECRET_KEY = 'DATTU-TESTING-SECURE-KEY';
@@ -60,7 +59,7 @@ const App = () => {
 
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
-      <h1 style={{ fontSize: '24px', marginBottom: '20px' }}>QR Text Encryptor & Scanner</h1>
+      <h1 style={{ fontSize: '24px', marginBottom: '20px' }}>Colliers - QR Text Encryptor & Scanner</h1>
 
       <div style={{ marginBottom: '20px' }}>
         <label htmlFor="qr-input" style={{ display: 'block', marginBottom: '8px' }}>
@@ -86,7 +85,7 @@ const App = () => {
       </div>
       <p>ADDING SCANNER</p>
 
-      {/* <div style={{ marginBottom: '30px' }}>
+      <div style={{ marginBottom: '30px' }}>
         <h3 style={{ marginBottom: '10px' }}>Scan a QR Code:</h3>
         <div style={{ width: '100%', maxWidth: '320px' }}>
           <BarcodeScanner
@@ -96,7 +95,7 @@ const App = () => {
           />
         </div>
         {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
-      </div> */}
+      </div>
 
       {decryptedText && (
         <div style={{ backgroundColor: '#e6ffe6', border: '1px solid #a6d8a6', padding: '12px' }}>
