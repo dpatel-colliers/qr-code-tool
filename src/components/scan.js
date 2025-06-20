@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import QRCode from 'react-qr-code';
+import { useState } from 'react';
 import BarcodeScanner from "./BarcodeScanner";
 import CryptoJS from 'crypto-js';
 

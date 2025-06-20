@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import QRCode from 'react-qr-code';
 import CryptoJS from 'crypto-js';
 
