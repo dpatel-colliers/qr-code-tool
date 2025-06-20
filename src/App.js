@@ -6,22 +6,25 @@ const SECRET_KEY = 'DATTU-TESTING-SECURE-KEY';
 
 const App = () => {
   const [page, setPage] = useState(undefined);
-  return <div>
-    <h1 style={{ fontSize: '24px', marginBottom: '20px' }}>Colliers - QR Text Encryptor & Scanner</h1>
-    <ul>
+  return <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
+    <ul style={{
+      padding: 0,
+      listStyle: 'none',
+      display: 'flex',
+      gap: '20px'
+    }}>
       {
-        !page ? <>
-          <li><button onClick={() => setPage('create')}>Create QR Code</button></li>
-          <li><button onClick={() => setPage('scan')}>Scan QR Code</button></li>
-        </> :
+        !page ?
+          <>
+            <li><button onClick={() => setPage('create')}>Create QR Code</button></li>
+            <li><button onClick={() => setPage('scan')}>Scan QR Code</button></li>
+          </> :
           <>
             <li><button onClick={() => setPage(undefined)}>Reset</button></li>
           </>
       }
-
-
     </ul>
-    <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
+    <div>
       {
         page === 'create' &&
         <div>
