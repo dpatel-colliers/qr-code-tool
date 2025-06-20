@@ -6,7 +6,7 @@ import CryptoJS from 'crypto-js';
 const ScanComponent = ({ secretKey }) => {
     const [error, setError] = useState('');
     const [decryptedText, setDecryptedText] = useState('');
-    const [scanned, setScanned] = useState(false);
+    const [log, setLog] = useState([]);
 
     const decryptMessage = (ciphertext) => {
         try {
@@ -18,7 +18,7 @@ const ScanComponent = ({ secretKey }) => {
     };
 
     const handleScan = (err, result) => {
-        if (err || scanned || !result) return;
+        if (err || !result) return;
 
         const decrypted = decryptMessage(result.text);
         if (!decrypted) {
@@ -33,25 +33,25 @@ const ScanComponent = ({ secretKey }) => {
         }
 
         setDecryptedText(decrypted.text);
-        setScanned(true);
         setError('');
-        setTimeout(() => setScanned(false), 3000);
     };
 
     return <div>
         <h1>Scan</h1>
         {
-            !decryptedText ? <div style={{ marginBottom: '30px' }}>
-                <h3 style={{ marginBottom: '10px' }}>Scan a QR Code:</h3>
-                <div style={{ width: '100%', maxWidth: '320px' }}>
-                    <BarcodeScanner
-                        width={320}
-                        height={240}
-                        onUpdate={handleScan}
-                    />
+            !decryptedText ? (
+                <div style={{ marginBottom: '30px' }}>
+                    <h3 style={{ marginBottom: '10px' }}>Scan a QR Code:</h3>
+                    <div style={{ width: '100%', maxWidth: '320px' }}>
+                        <BarcodeScanner
+                            width={320}
+                            height={240}
+                            onUpdate={handleScan}
+                        />
+                    </div>
+                    {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
                 </div>
-                {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
-            </div> : (
+            ) : (
                 <>
                     <div style={{ backgroundColor: '#e6ffe6', border: '1px solid #a6d8a6', padding: '12px' }}>
                         <h4>Decrypted Text:</h4>
@@ -64,14 +64,19 @@ const ScanComponent = ({ secretKey }) => {
                         gap: '20px'
                     }}>
                         <li><button type='button' onClick={() => {
+                            setLog(prev => [...prev, decryptedText]);
                             setDecryptedText('');
-                            setScanned(false);
                             setError('');
-                        }}>Scan Next</button></li>
+                        }}>Submit and Scan Next</button></li>
                     </ul>
                 </>
             )
         }
+        <ul>
+            {
+                log.map((l, i) => <li key={i}>{l}</li>)
+            }
+        </ul>
 
     </div>
 }
